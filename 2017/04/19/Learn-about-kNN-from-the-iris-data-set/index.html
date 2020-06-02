@@ -20,8 +20,31 @@
     <meta name="keywords" content="LOnils,security,rootkit">
     
     <meta name="description" content="">
+    <meta name="description" content="机器学习慢慢的在各种领域发挥作用，在安全领域也不例外，之前就有类似关于机器学习Web安全的讨论。并且许多甲方公司也在开始研究机器学习对自己安全方向的领域（Web、DDoS）能够发挥什么作用，拭目以待吧:)  。 0x01 kNNK-NN是一种基于实例的学习，或者是局部近似和将所有计算推迟到分类之后的惰性学习。k-近邻算法是所有的机器学习算法中最简单的之一。这句话是维基百科里的解释，可以用网上的一幅">
+<meta name="keywords" content="ML,kNN">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从iris数据集来认识kNN">
+<meta property="og:url" content="http://onils.github.io/2017/04/19/Learn-about-kNN-from-the-iris-data-set/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="机器学习慢慢的在各种领域发挥作用，在安全领域也不例外，之前就有类似关于机器学习Web安全的讨论。并且许多甲方公司也在开始研究机器学习对自己安全方向的领域（Web、DDoS）能够发挥什么作用，拭目以待吧:)  。 0x01 kNNK-NN是一种基于实例的学习，或者是局部近似和将所有计算推迟到分类之后的惰性学习。k-近邻算法是所有的机器学习算法中最简单的之一。这句话是维基百科里的解释，可以用网上的一幅">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://onils.github.io/images/2018-08-08-15-53-21.jpg">
+<meta property="og:image" content="http://onils.github.io/images/2018-08-08-15-54-41.jpg">
+<meta property="og:image" content="http://onils.github.io/images/2018-08-08-15-54-45.jpg">
+<meta property="og:image" content="http://onils.github.io/images/2018-08-08-15-55-25.jpg">
+<meta property="og:image" content="http://onils.github.io/images/2018-08-08-15-55-36.jpg">
+<meta property="og:image" content="http://onils.github.io/images/2018-08-08-15-55-46.jpg">
+<meta property="og:image" content="http://onils.github.io/images/2018-08-08-15-55-49.jpg">
+<meta property="og:image" content="http://onils.github.io/images/2018-08-08-15-55-58.jpg">
+<meta property="og:image" content="http://onils.github.io/images/2018-08-08-15-56-09.jpg">
+<meta property="og:updated_time" content="2020-05-03T18:41:29.698Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="从iris数据集来认识kNN">
+<meta name="twitter:description" content="机器学习慢慢的在各种领域发挥作用，在安全领域也不例外，之前就有类似关于机器学习Web安全的讨论。并且许多甲方公司也在开始研究机器学习对自己安全方向的领域（Web、DDoS）能够发挥什么作用，拭目以待吧:)  。 0x01 kNNK-NN是一种基于实例的学习，或者是局部近似和将所有计算推迟到分类之后的惰性学习。k-近邻算法是所有的机器学习算法中最简单的之一。这句话是维基百科里的解释，可以用网上的一幅">
+<meta name="twitter:image" content="http://onils.github.io/images/2018-08-08-15-53-21.jpg">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
     <title>从iris数据集来认识kNN · LOnils&#39;s Blog</title>
     <style type="text/css">
     @font-face {
@@ -457,6 +480,27 @@ height:40vh;
 <!-- City版安装代码已完成 -->
     
     
+    <!-- gitalk评论 -->
+
+    <div id="comment-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.6.0/dist/gitalk.css">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1.6.0/dist/gitalk.min.js"></script>
+    <script>
+        var gitalk = new Gitalk({
+            clientID: '1de907d9fba71de3eedd',
+            clientSecret: '5ffbb8f84abb979ecf436da8ecfa046e33b56943',
+            id: 'Wed Apr 19 2017 00:00:00 GMT+0800',
+            repo: 'onils.github.io',
+            owner: 'Onils',
+            admin: "Onils",
+            createIssueManually: true,
+            distractionFreeMode: false
+        })
+        gitalk.render('comment-container')
+    </script>
+    
+    <!-- utteranc评论 -->
+
     <!-- partial('_partial/comment/changyan') -->
     <!--PC版-->
 
@@ -723,6 +767,12 @@ top:40vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
+        <span class="sidebar-tag-name" data-tags="book"><span class="iconfont-archer">&#xe606;</span>book</span>
+    
+        <span class="sidebar-tag-name" data-tags="ML"><span class="iconfont-archer">&#xe606;</span>ML</span>
+    
+        <span class="sidebar-tag-name" data-tags="kNN"><span class="iconfont-archer">&#xe606;</span>kNN</span>
+    
         <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
     
         <span class="sidebar-tag-name" data-tags="Binary"><span class="iconfont-archer">&#xe606;</span>Binary</span>
@@ -733,14 +783,6 @@ top:40vh;
     
         <span class="sidebar-tag-name" data-tags="LD_PRELOAD"><span class="iconfont-archer">&#xe606;</span>LD_PRELOAD</span>
     
-        <span class="sidebar-tag-name" data-tags="backdoor"><span class="iconfont-archer">&#xe606;</span>backdoor</span>
-    
-        <span class="sidebar-tag-name" data-tags="pam"><span class="iconfont-archer">&#xe606;</span>pam</span>
-    
-        <span class="sidebar-tag-name" data-tags="ML"><span class="iconfont-archer">&#xe606;</span>ML</span>
-    
-        <span class="sidebar-tag-name" data-tags="kNN"><span class="iconfont-archer">&#xe606;</span>kNN</span>
-    
         <span class="sidebar-tag-name" data-tags="spark"><span class="iconfont-archer">&#xe606;</span>spark</span>
     
         <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
@@ -749,11 +791,13 @@ top:40vh;
     
         <span class="sidebar-tag-name" data-tags="Perl"><span class="iconfont-archer">&#xe606;</span>Perl</span>
     
-        <span class="sidebar-tag-name" data-tags="book"><span class="iconfont-archer">&#xe606;</span>book</span>
-    
         <span class="sidebar-tag-name" data-tags="audit"><span class="iconfont-archer">&#xe606;</span>audit</span>
     
         <span class="sidebar-tag-name" data-tags="golang"><span class="iconfont-archer">&#xe606;</span>golang</span>
+    
+        <span class="sidebar-tag-name" data-tags="backdoor"><span class="iconfont-archer">&#xe606;</span>backdoor</span>
+    
+        <span class="sidebar-tag-name" data-tags="pam"><span class="iconfont-archer">&#xe606;</span>pam</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>

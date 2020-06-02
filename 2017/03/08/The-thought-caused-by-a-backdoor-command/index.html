@@ -20,8 +20,34 @@
     <meta name="keywords" content="LOnils,security,rootkit">
     
     <meta name="description" content="">
+    <meta name="description" content="0x01 起因某天 Sevck 在群里 发了一句在网上流传的后门：1ln -sf /usr/sbin/sshd /tmp/su; /tmp/su -oPort=5555 命令的意思就是将sshd做个软连接新建到/tmp/su，之后开放5555端口。通过ssh root@X.X.X.X -p 5555 随意输入密码 即可连接后门。 0x02 分析于是在vps上从/var/log/secure 中获取">
+<meta name="keywords" content="Linux,backdoor,pam">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一条后门命令引发的思考">
+<meta property="og:url" content="http://onils.github.io/2017/03/08/The-thought-caused-by-a-backdoor-command/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="0x01 起因某天 Sevck 在群里 发了一句在网上流传的后门：1ln -sf /usr/sbin/sshd /tmp/su; /tmp/su -oPort=5555 命令的意思就是将sshd做个软连接新建到/tmp/su，之后开放5555端口。通过ssh root@X.X.X.X -p 5555 随意输入密码 即可连接后门。 0x02 分析于是在vps上从/var/log/secure 中获取">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://onils.github.io/images/2018-08-08-15-07-48.jpg">
+<meta property="og:image" content="http://onils.github.io/images/2018-08-08-15-08-51.jpg">
+<meta property="og:image" content="http://onils.github.io/images/2018-08-08-15-37-01.png">
+<meta property="og:image" content="http://onils.github.io/images/2018-08-08-15-09-28.jpg">
+<meta property="og:image" content="http://onils.github.io/images/2018-08-08-15-35-15.png">
+<meta property="og:image" content="http://onils.github.io/images/2018-08-08-15-09-38.jpg">
+<meta property="og:image" content="http://onils.github.io/images/2018-08-08-15-09-47.jpg">
+<meta property="og:image" content="http://onils.github.io/images/2018-08-08-15-09-55.jpg">
+<meta property="og:image" content="http://onils.github.io/images/2018-08-08-15-10-19.jpg">
+<meta property="og:image" content="http://onils.github.io/images/2018-08-08-15-10-29.jpg">
+<meta property="og:image" content="http://onils.github.io/images/2018-08-08-15-10-52.jpg">
+<meta property="og:image" content="http://onils.github.io/images/2018-08-08-15-10-59.jpg">
+<meta property="og:updated_time" content="2020-05-03T18:41:29.699Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一条后门命令引发的思考">
+<meta name="twitter:description" content="0x01 起因某天 Sevck 在群里 发了一句在网上流传的后门：1ln -sf /usr/sbin/sshd /tmp/su; /tmp/su -oPort=5555 命令的意思就是将sshd做个软连接新建到/tmp/su，之后开放5555端口。通过ssh root@X.X.X.X -p 5555 随意输入密码 即可连接后门。 0x02 分析于是在vps上从/var/log/secure 中获取">
+<meta name="twitter:image" content="http://onils.github.io/images/2018-08-08-15-07-48.jpg">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
     <title>一条后门命令引发的思考 · LOnils&#39;s Blog</title>
     <style type="text/css">
     @font-face {
@@ -451,6 +477,27 @@ height:40vh;
 <!-- City版安装代码已完成 -->
     
     
+    <!-- gitalk评论 -->
+
+    <div id="comment-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.6.0/dist/gitalk.css">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1.6.0/dist/gitalk.min.js"></script>
+    <script>
+        var gitalk = new Gitalk({
+            clientID: '1de907d9fba71de3eedd',
+            clientSecret: '5ffbb8f84abb979ecf436da8ecfa046e33b56943',
+            id: 'Wed Mar 08 2017 00:00:00 GMT+0800',
+            repo: 'onils.github.io',
+            owner: 'Onils',
+            admin: "Onils",
+            createIssueManually: true,
+            distractionFreeMode: false
+        })
+        gitalk.render('comment-container')
+    </script>
+    
+    <!-- utteranc评论 -->
+
     <!-- partial('_partial/comment/changyan') -->
     <!--PC版-->
 
@@ -717,6 +764,12 @@ top:40vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
+        <span class="sidebar-tag-name" data-tags="book"><span class="iconfont-archer">&#xe606;</span>book</span>
+    
+        <span class="sidebar-tag-name" data-tags="ML"><span class="iconfont-archer">&#xe606;</span>ML</span>
+    
+        <span class="sidebar-tag-name" data-tags="kNN"><span class="iconfont-archer">&#xe606;</span>kNN</span>
+    
         <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
     
         <span class="sidebar-tag-name" data-tags="Binary"><span class="iconfont-archer">&#xe606;</span>Binary</span>
@@ -727,14 +780,6 @@ top:40vh;
     
         <span class="sidebar-tag-name" data-tags="LD_PRELOAD"><span class="iconfont-archer">&#xe606;</span>LD_PRELOAD</span>
     
-        <span class="sidebar-tag-name" data-tags="backdoor"><span class="iconfont-archer">&#xe606;</span>backdoor</span>
-    
-        <span class="sidebar-tag-name" data-tags="pam"><span class="iconfont-archer">&#xe606;</span>pam</span>
-    
-        <span class="sidebar-tag-name" data-tags="ML"><span class="iconfont-archer">&#xe606;</span>ML</span>
-    
-        <span class="sidebar-tag-name" data-tags="kNN"><span class="iconfont-archer">&#xe606;</span>kNN</span>
-    
         <span class="sidebar-tag-name" data-tags="spark"><span class="iconfont-archer">&#xe606;</span>spark</span>
     
         <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
@@ -743,11 +788,13 @@ top:40vh;
     
         <span class="sidebar-tag-name" data-tags="Perl"><span class="iconfont-archer">&#xe606;</span>Perl</span>
     
-        <span class="sidebar-tag-name" data-tags="book"><span class="iconfont-archer">&#xe606;</span>book</span>
-    
         <span class="sidebar-tag-name" data-tags="audit"><span class="iconfont-archer">&#xe606;</span>audit</span>
     
         <span class="sidebar-tag-name" data-tags="golang"><span class="iconfont-archer">&#xe606;</span>golang</span>
+    
+        <span class="sidebar-tag-name" data-tags="backdoor"><span class="iconfont-archer">&#xe606;</span>backdoor</span>
+    
+        <span class="sidebar-tag-name" data-tags="pam"><span class="iconfont-archer">&#xe606;</span>pam</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
