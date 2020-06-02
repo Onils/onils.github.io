@@ -2352,7 +2352,7 @@ html::-webkit-scrollbar-track:hover,.sidebar-panel-archives::-webkit-scrollbar-t
     position: absolute;
     top: 50vh;
     width: 22%;
-    right: 1%;
+    left: 2%;
     overflow: hidden;
     max-width: calc((100% - 42.8125rem - 4rem) / 2);
     z-index: 9999;
