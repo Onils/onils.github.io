@@ -20,18 +20,23 @@
     <meta name="keywords" content="LOnils,security,rootkit">
     
     <meta name="description" content="">
-    <meta name="description" content="Welcome to my blog, enter password to read.">
+    <meta name="description" content="0x01 前言Linux auditd 工具可以将审计记录写入日志文件，包括记录系统调用和文件访问。通过这个系统自带的系统，可以帮助分析安全威胁（很多HIDS也调用了这个功能）。 0x02 audit in Linux大概说整个audit系统的流程：  如图，实线代表数据流，虚线代表组件之间的控制关系。 在Linux内核中，对应用程序有以下几种调用：  User : 记录用户空间产生的事件；它的作">
 <meta name="keywords" content="Linux,audit,golang">
 <meta property="og:type" content="article">
 <meta property="og:title" content="利用Linux audit分析安全威胁">
 <meta property="og:url" content="http://onils.github.io/2018/08/09/Use-Linux-audit-to-analyze-security-threats/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Welcome to my blog, enter password to read.">
+<meta property="og:description" content="0x01 前言Linux auditd 工具可以将审计记录写入日志文件，包括记录系统调用和文件访问。通过这个系统自带的系统，可以帮助分析安全威胁（很多HIDS也调用了这个功能）。 0x02 audit in Linux大概说整个audit系统的流程：  如图，实线代表数据流，虚线代表组件之间的控制关系。 在Linux内核中，对应用程序有以下几种调用：  User : 记录用户空间产生的事件；它的作">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-05-09T13:33:57.174Z">
+<meta property="og:image" content="http://onils.github.io/images/2018-08-09-14-57-37.jpg">
+<meta property="og:image" content="http://onils.github.io/images/2018-08-09-15-57-23.png">
+<meta property="og:image" content="http://onils.github.io/images/2018-08-09-17-21-51.png">
+<meta property="og:image" content="http://onils.github.io/images/2018-08-09-17-22-42.png">
+<meta property="og:updated_time" content="2020-06-06T14:50:07.546Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="利用Linux audit分析安全威胁">
-<meta name="twitter:description" content="Welcome to my blog, enter password to read.">
+<meta name="twitter:description" content="0x01 前言Linux auditd 工具可以将审计记录写入日志文件，包括记录系统调用和文件访问。通过这个系统自带的系统，可以帮助分析安全威胁（很多HIDS也调用了这个功能）。 0x02 audit in Linux大概说整个audit系统的流程：  如图，实线代表数据流，虚线代表组件之间的控制关系。 在Linux内核中，对应用程序有以下几种调用：  User : 记录用户空间产生的事件；它的作">
+<meta name="twitter:image" content="http://onils.github.io/images/2018-08-09-14-57-37.jpg">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     
@@ -289,7 +294,7 @@ height:40vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">809</span>Reading time: <span class="post-count reading-time">5 min</span></span>
+                        <span>Word count: <span class="post-count word-count">1.4k</span>Reading time: <span class="post-count reading-time">5 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -418,27 +423,113 @@ height:40vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-<div id="hbe-security">
-  <div class="hbe-input-container">
-  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read.">
-    <label for="pass">Welcome to my blog, enter password to read.</label>
-    <div class="bottom-line"></div>
-  </div>
-</div>
-<div id="decryptionError" style="display: none;">Incorrect Password!</div>
-<div id="noContentError" style="display: none;">No content to display!</div>
-<div id="encrypt-blog" style="display:none">
-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
-</div>
-<script src="/lib/crypto-js.js"></script><script src="/lib/blog-encrypt.js"></script><link href="/css/blog-encrypt.css" rel="stylesheet" type="text/css">
+        <h2 id="0x01-前言"><a href="#0x01-前言" class="headerlink" title="0x01 前言"></a>0x01 前言</h2><p>Linux auditd 工具可以将审计记录写入日志文件，包括记录系统调用和文件访问。通过这个系统自带的系统，可以帮助分析安全威胁（很多HIDS也调用了这个功能）。</p>
+<h2 id="0x02-audit-in-Linux"><a href="#0x02-audit-in-Linux" class="headerlink" title="0x02 audit in Linux"></a>0x02 audit in Linux</h2><p>大概说整个audit系统的流程：</p>
+<p><img src="/images/2018-08-09-14-57-37.jpg" alt=""></p>
+<p>如图，实线代表数据流，虚线代表组件之间的控制关系。</p>
+<p>在Linux内核中，对应用程序有以下几种调用：</p>
+<ul>
+<li><strong>User</strong> : 记录用户空间产生的事件；它的作用是过滤消息的，内核传递给审计后台进程之前先查询它。</li>
+<li><strong>Task</strong> ：跟踪应用程序的子进程（fork）；当一个任务被创建时，也就是父进程通过 fork 和克隆创建子进程时记录该事件；</li>
+<li><strong>Exit</strong> ：当一个系统调用结束时判断是否记录该调用；</li>
+<li><strong>Exclude</strong> ：删除不合格事件；Exclude 是用来过滤消息的，也就是不想看到的消息可以在这里写规则进行过滤。</li>
+</ul>
+<p>Linux 用户空间审计系统由 auditd、audispd、auditctl、autrace、ausearch 和 aureport 等应用程序组成。下面依次说明：</p>
+<ul>
+<li><strong>auditctl</strong> : 即时控制审计守护进程的行为的工具，如添加规则等。</li>
+<li><strong>auditd</strong> ：audit 守护进程负责把内核产生的信息写入到硬盘上，这些信息由应用程序和系统活动触发产生。用户空间审计系统通过 auditd 后台进程接收内核审计系统传送来的审计信息，将信息写入到 /var/log/audit/audit.log。</li>
+<li><strong>aureport</strong> : 查看和生成审计报告的工具。</li>
+<li><strong>ausearch</strong> : 查找审计事件的工具</li>
+<li><strong>auditspd</strong> : 转发事件通知给其他应用程序，而不是写入到审计日志文件中。</li>
+<li><strong>autrace</strong> : 一个用于跟踪进程的命令。类似于 strace，跟踪某一个进程，并将跟踪的结果写入日志文件之中。</li>
+</ul>
+<h2 id="0x03-audit启动"><a href="#0x03-audit启动" class="headerlink" title="0x03 audit启动"></a>0x03 audit启动</h2><p>Linux默认都是开启的，可以通过<code>auditctl -s</code> 来查看audit内核模块的状态，如果返回的结果中的<code>enabled 0</code>则表示未开启，为<code>1</code>的时候表示开启，<code>2</code>表示规则锁定状态 ，可通过 <code>-e</code>参数进行设置。</p>
+<p>我们常见的是auditd服务，所以可以通过 <code>service auditd status</code>来查看auditd服务是否开启，这个和的<code>enabled</code>是有区别的。</p>
+<h2 id="0x04-audit配置文件"><a href="#0x04-audit配置文件" class="headerlink" title="0x04 audit配置文件"></a>0x04 audit配置文件</h2><p>进入<code>/etc/audit</code>目录<br><img src="/images/2018-08-09-15-57-23.png" alt=""></p>
+<p>auditd.conf<code>是守护程序的默认配置文件，</code>audit.rules` 是记录审计规则的文件。</p>
+<h2 id="0x05-auditctl"><a href="#0x05-auditctl" class="headerlink" title="0x05 auditctl"></a>0x05 auditctl</h2><p>auditctl 命令是 Linux 用户空间审计系统的最主要的部分，</p>
+<p>audit 审计规则分成三个部分：</p>
+<h3 id="0x01-控制规则"><a href="#0x01-控制规则" class="headerlink" title="0x01 控制规则"></a>0x01 控制规则</h3><p>控制规则用于更改审计系统本身的配置和设置。</p>
+<p>控制规则可以在/etc/audit/audit.rules 中设置。主要包括:</p>
+<ul>
+<li>-D #删除所有当前装载的审核规则#</li>
+<li>-b 8192 #在内核中设定最大数量的已存在的审核缓冲区为 8Mb#</li>
+<li>-e 2 #锁定审核配置#</li>
+</ul>
+<h3 id="0x02-文件系统规则"><a href="#0x02-文件系统规则" class="headerlink" title="0x02 文件系统规则"></a>0x02 文件系统规则</h3><p>这些是文件或目录监视。 使用这些规则，我们可以审核对特定文件或目录的任何类型的访问。</p>
+<p>监控文件系统行为（依靠文件、目录的权限属性来识别）</p>
+<p>规则格式：</p>
+<ul>
+<li>-w 路径</li>
+<li>-p 权限</li>
+<li>-k 关键字</li>
+</ul>
+<p>其中-p 权限的动作分为四种: rwxa</p>
+<p>例如要监控某个 文件的修改行为，可以使用这个命令:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auditctl -w filename -p wa</span><br></pre></td></tr></table></figure></p>
+<p>将一段数据写入写入测试文件，可以看到log直接告警了。<br><img src="/images/2018-08-09-17-21-51.png" alt=""></p>
+<p><img src="/images/2018-08-09-17-22-42.png" alt=""></p>
+<p>如果想要永久使用，可以将规则写入<code>/etc/audit/rules.d/audit.rules</code> </p>
+<h3 id="0x03-系统调用规则"><a href="#0x03-系统调用规则" class="headerlink" title="0x03 系统调用规则"></a>0x03 系统调用规则</h3><p>这些规则用于监视由任何进程或特定用户进行的系统调用，比较常用。</p>
+<p>命令格式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auditctl [option] filter,action   -S syscall   -F condition   -k label</span><br></pre></td></tr></table></figure>
+<p>option 参数比较多，具体的可以<code>man auditctl</code></p>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>可选参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>filter</td>
+<td>user,exit,task,exclude</td>
+<td>filter 详细说明哪个内核规则匹配过滤器应用在事件中。以下是其中之一的与规则匹配的过滤器： task、exit、user 以及 exclude</td>
+</tr>
+<tr>
+<td>action</td>
+<td>always, never</td>
+<td>是否审核事件（always 表示是）（never 表示否）</td>
+</tr>
+<tr>
+<td>syscall</td>
+<td>all, 2, open 等</td>
+<td>所有的系统调用都可以在/usr/include/asm/unistd_64.h 文件中找到。许多系统调用都能形成一个规则</td>
+</tr>
+<tr>
+<td>condition</td>
+<td>euid=0, arch=b64</td>
+<td>详细说明其他选项，进一步修改规则来与以特定架构、组 ID、进程 ID 和其他内容为基础的事件相匹配</td>
+</tr>
+<tr>
+<td>label</td>
+<td>任意文字</td>
+<td>标记审核事件并检索日志</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>-S 表示系统调用号或名字</li>
+<li>-F 表示规则域</li>
+<li>-k 表示设置审计规则上的过滤关键</li>
+</ul>
+<p>官方也写了几个expamples<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">To see all syscalls made by a specific program:</span><br><span class="line">auditctl -a always,exit -S all -F pid=1005</span><br><span class="line"></span><br><span class="line">To see files opened by a specific user:</span><br><span class="line">auditctl -a always,exit -S openat -F auid=510</span><br><span class="line"></span><br><span class="line">To see unsuccessful openat calls:</span><br><span class="line">auditctl -a always,exit -S openat -F success=0</span><br></pre></td></tr></table></figure></p>
+<h2 id="0x06-分析威胁"><a href="#0x06-分析威胁" class="headerlink" title="0x06 分析威胁"></a>0x06 分析威胁</h2><p>这里举几个可用的例子：</p>
+<p>比如监控 execve syscall , 监控父进程调用bash的程序，可检测部分反弹shell（需要过滤下），实际中甲方更加常用netlink connect 来监控execve</p>
+<p>监控 /etc/shadow 文件，检测主机用户账户变化</p>
+<p>监控进程ptrace行为检测进程注入，之前写过几条 可以参考下 :)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-a always,exit -F arch=b64 -S ptrace -F a0=0x4 -F key=ptrace_poketext</span><br><span class="line">-a always,exit -F arch=b64 -S ptrace -F a0=0x5 -F key=ptrace_pokedata</span><br></pre></td></tr></table></figure>
+<h2 id="0x07-show-me-code"><a href="#0x07-show-me-code" class="headerlink" title="0x07 show me code"></a>0x07 show me code</h2><p>可参考 <a href="https://github.com/elastic/go-libaudit" target="_blank" rel="noopener">https://github.com/elastic/go-libaudit</a> 的实现</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.ibm.com/developerworks/cn/linux/l-lo-use-space-audit-tool/index.html" target="_blank" rel="noopener">https://www.ibm.com/developerworks/cn/linux/l-lo-use-space-audit-tool/index.html</a></p>
+
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>原文链接：<a href="http://onils.github.io/2018/08/09/Use-Linux-audit-to-analyze-security-threats/">http://onils.github.io/2018/08/09/Use-Linux-audit-to-analyze-security-threats/</a>
             </p><p>发表日期：<a href="http://onils.github.io/2018/08/09/Use-Linux-audit-to-analyze-security-threats/">August 9th 2018, 12:00:00 am</a>
-            </p><p>更新日期：<a href="http://onils.github.io/2018/08/09/Use-Linux-audit-to-analyze-security-threats/">May 9th 2020, 9:33:57 pm</a>
+            </p><p>更新日期：<a href="http://onils.github.io/2018/08/09/Use-Linux-audit-to-analyze-security-threats/">June 6th 2020, 10:50:07 pm</a>
             </p><p>版权声明：<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)</a></p>
         </div>
     
@@ -593,7 +684,7 @@ top:40vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-前言"><span class="toc-number">1.</span> <span class="toc-text">0x01 前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-audit-in-Linux"><span class="toc-number">2.</span> <span class="toc-text">0x02 audit in Linux</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03-audit启动"><span class="toc-number">3.</span> <span class="toc-text">0x03 audit启动</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x04-audit配置文件"><span class="toc-number">4.</span> <span class="toc-text">0x04 audit配置文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x05-auditctl"><span class="toc-number">5.</span> <span class="toc-text">0x05 auditctl</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#0x01-控制规则"><span class="toc-number">5.1.</span> <span class="toc-text">0x01 控制规则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x02-文件系统规则"><span class="toc-number">5.2.</span> <span class="toc-text">0x02 文件系统规则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x03-系统调用规则"><span class="toc-number">5.3.</span> <span class="toc-text">0x03 系统调用规则</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x06-分析威胁"><span class="toc-number">6.</span> <span class="toc-text">0x06 分析威胁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x07-show-me-code"><span class="toc-number">7.</span> <span class="toc-text">0x07 show me code</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">8.</span> <span class="toc-text">参考</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -666,9 +757,27 @@ top:40vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 8
+        Total : 10
         </div>
         <!-- search  -->
         
@@ -681,6 +790,16 @@ top:40vh;
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/05</span><a class="archive-post-title" href="/2020/06/05/Linux-Compromise-Detection-Command-Cheatsheet/">Linux Compromise Detection Command Cheatsheet</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/05</span><a class="archive-post-title" href="/2020/06/05/Detecting-Linux-Kernel-Process-Masquerading/">Detecting Linux Kernel Process Masquerading</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -703,7 +822,7 @@ top:40vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/02</span><a class="archive-post-title" href="/2019/01/02/Linux-Security/">Linux Binary Security</a>
+            <span class="archive-post-date">01/02</span><a class="archive-post-title" href="/2019/01/02/Linux-Binary-Security/">Linux Binary Security</a>
         </li>
     
     
@@ -754,17 +873,11 @@ top:40vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="book"><span class="iconfont-archer">&#xe606;</span>book</span>
-    
         <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
     
         <span class="sidebar-tag-name" data-tags="LD_PRELOAD"><span class="iconfont-archer">&#xe606;</span>LD_PRELOAD</span>
     
-        <span class="sidebar-tag-name" data-tags="Binary"><span class="iconfont-archer">&#xe606;</span>Binary</span>
-    
-        <span class="sidebar-tag-name" data-tags="ELF"><span class="iconfont-archer">&#xe606;</span>ELF</span>
-    
-        <span class="sidebar-tag-name" data-tags="Reversing"><span class="iconfont-archer">&#xe606;</span>Reversing</span>
+        <span class="sidebar-tag-name" data-tags="rootkit"><span class="iconfont-archer">&#xe606;</span>rootkit</span>
     
         <span class="sidebar-tag-name" data-tags="ML"><span class="iconfont-archer">&#xe606;</span>ML</span>
     
@@ -774,17 +887,27 @@ top:40vh;
     
         <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
     
+        <span class="sidebar-tag-name" data-tags="Binary"><span class="iconfont-archer">&#xe606;</span>Binary</span>
+    
+        <span class="sidebar-tag-name" data-tags="ELF"><span class="iconfont-archer">&#xe606;</span>ELF</span>
+    
+        <span class="sidebar-tag-name" data-tags="Reversing"><span class="iconfont-archer">&#xe606;</span>Reversing</span>
+    
         <span class="sidebar-tag-name" data-tags="backdoor"><span class="iconfont-archer">&#xe606;</span>backdoor</span>
     
-        <span class="sidebar-tag-name" data-tags="pam"><span class="iconfont-archer">&#xe606;</span>pam</span>
-    
-        <span class="sidebar-tag-name" data-tags="audit"><span class="iconfont-archer">&#xe606;</span>audit</span>
-    
-        <span class="sidebar-tag-name" data-tags="golang"><span class="iconfont-archer">&#xe606;</span>golang</span>
+        <span class="sidebar-tag-name" data-tags="detection"><span class="iconfont-archer">&#xe606;</span>detection</span>
     
         <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
     
         <span class="sidebar-tag-name" data-tags="Perl"><span class="iconfont-archer">&#xe606;</span>Perl</span>
+    
+        <span class="sidebar-tag-name" data-tags="pam"><span class="iconfont-archer">&#xe606;</span>pam</span>
+    
+        <span class="sidebar-tag-name" data-tags="book"><span class="iconfont-archer">&#xe606;</span>book</span>
+    
+        <span class="sidebar-tag-name" data-tags="audit"><span class="iconfont-archer">&#xe606;</span>audit</span>
+    
+        <span class="sidebar-tag-name" data-tags="golang"><span class="iconfont-archer">&#xe606;</span>golang</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
@@ -818,6 +941,8 @@ jsonContent:
 </div>
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="Linux"><span class="iconfont-archer">&#xe60a;</span>Linux</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>

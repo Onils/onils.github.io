@@ -354,6 +354,81 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href="/2020/06/05/Detecting-Linux-Kernel-Process-Masquerading/">
+            
+                <span>Detecting Linux Kernel Process Masquerading</span>
+        </a>
+        <div class="abstract-content">
+            还没写，有空补上
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/06/05</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="Linux">Linux</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="rootkit">rootkit</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="backdoor">backdoor</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2020/06/05/Linux-Compromise-Detection-Command-Cheatsheet/">
+            
+                <span>Linux Compromise Detection Command Cheatsheet</span>
+        </a>
+        <div class="abstract-content">
+            Linux应急检测命令备忘表，从进程、目录、文件、用户、日志进行查询搜索，仅供参考。
+建议有些命令附带busybox 执行，最好方式还是查看文件而不单是执行命令 :)
+Processes查看占用大量CPU/RAM的进程
+1top
+进程树
+1ps -auxwf
+开放的网络端口
+1234netstat -nalpnetstat -plantss -a -e -ilsof [many opitons]
+查找被删除但还在运行的程序
+1ls -alR /proc/*/exe 2&gt; /dev/null |grep deleted
+进程相关名称及命令
+12strings /proc/&lt;PI...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/06/05</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="Linux">Linux</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="detection">detection</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href="/2020/06/02/LD_NOT_PRELOAD_FOR_REAL-CN/">
             
                 <span>LD NOT PRELOAD For Real</span>
@@ -374,6 +449,8 @@
     
         <a class="post-tag" href="javascript:void(0);" data-tags="LD_PRELOAD">LD_PRELOAD</a>
     
+        <a class="post-tag" href="javascript:void(0);" data-tags="rootkit">rootkit</a>
+    
 </div>
             
         </div>
@@ -385,12 +462,12 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2019/01/02/Linux-Security/">
+        <a class="abstract-title" href="/2019/01/02/Linux-Binary-Security/">
             
                 <span>Linux Binary Security</span>
         </a>
         <div class="abstract-content">
-            0x01 Introduction basic Tools.objdump对二进制文件进行反编译，由于依赖ELF头，适合分析简单及未被篡改的文件。objdump -d `which id`  assembler contents of executable sectionsobjcopyobjcopy --only-section=.data `which id` /tmp/id-output
+            The article has been encrypted, please enter your password to view.<br>
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -459,8 +536,13 @@
         </a>
         <div class="abstract-content">
             0x01 起因某天 Sevck 在群里 发了一句在网上流传的后门：1ln -sf /usr/sbin/sshd /tmp/su; /tmp/su -oPort=5555
-命令的意思就是将sshd做个软连接新建到/tmp/su，之后开放5555端口。通过ssh root@X.X.X.X -p 5555 随意输入密码 即可连接后门。
-0x02 分析于是在vps上从/var/log/secure 中获取ssh的日志，之后执行ln后门。在分析过程中发现如果把后门命令中的/tmp/su中的su修改成任意其他名字就不能够进行后门连接。具体可看日志：可以发现在修改为tt之后远程无法进行连接。sevck...
+命令的意思就是将sshd做个软连接新建到/tmp/su，之后开放5555端口。
+通过ssh root@X.X.X.X -p 5555 随意输入密码 即可连接后门。
+0x02 分析于是在vps上从/var/log/secure 中获取ssh的日志，之后执行ln后门。
+在分析过程中发现如果把后门命令中的/tmp/su中的su修改成任意其他名字就不能够进行后门连接。
+具体可看日志：
+可以发现在修改为tt之后远程无法进行连接。
+...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -636,9 +718,27 @@
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 8
+        Total : 10
         </div>
         <!-- search  -->
         
@@ -651,6 +751,16 @@
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/05</span><a class="archive-post-title" href="/2020/06/05/Linux-Compromise-Detection-Command-Cheatsheet/">Linux Compromise Detection Command Cheatsheet</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/05</span><a class="archive-post-title" href="/2020/06/05/Detecting-Linux-Kernel-Process-Masquerading/">Detecting Linux Kernel Process Masquerading</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -673,7 +783,7 @@
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/02</span><a class="archive-post-title" href="/2019/01/02/Linux-Security/">Linux Binary Security</a>
+            <span class="archive-post-date">01/02</span><a class="archive-post-title" href="/2019/01/02/Linux-Binary-Security/">Linux Binary Security</a>
         </li>
     
     
@@ -724,17 +834,11 @@
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="book"><span class="iconfont-archer">&#xe606;</span>book</span>
-    
         <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
     
         <span class="sidebar-tag-name" data-tags="LD_PRELOAD"><span class="iconfont-archer">&#xe606;</span>LD_PRELOAD</span>
     
-        <span class="sidebar-tag-name" data-tags="Binary"><span class="iconfont-archer">&#xe606;</span>Binary</span>
-    
-        <span class="sidebar-tag-name" data-tags="ELF"><span class="iconfont-archer">&#xe606;</span>ELF</span>
-    
-        <span class="sidebar-tag-name" data-tags="Reversing"><span class="iconfont-archer">&#xe606;</span>Reversing</span>
+        <span class="sidebar-tag-name" data-tags="rootkit"><span class="iconfont-archer">&#xe606;</span>rootkit</span>
     
         <span class="sidebar-tag-name" data-tags="ML"><span class="iconfont-archer">&#xe606;</span>ML</span>
     
@@ -744,17 +848,27 @@
     
         <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
     
+        <span class="sidebar-tag-name" data-tags="Binary"><span class="iconfont-archer">&#xe606;</span>Binary</span>
+    
+        <span class="sidebar-tag-name" data-tags="ELF"><span class="iconfont-archer">&#xe606;</span>ELF</span>
+    
+        <span class="sidebar-tag-name" data-tags="Reversing"><span class="iconfont-archer">&#xe606;</span>Reversing</span>
+    
         <span class="sidebar-tag-name" data-tags="backdoor"><span class="iconfont-archer">&#xe606;</span>backdoor</span>
     
-        <span class="sidebar-tag-name" data-tags="pam"><span class="iconfont-archer">&#xe606;</span>pam</span>
-    
-        <span class="sidebar-tag-name" data-tags="audit"><span class="iconfont-archer">&#xe606;</span>audit</span>
-    
-        <span class="sidebar-tag-name" data-tags="golang"><span class="iconfont-archer">&#xe606;</span>golang</span>
+        <span class="sidebar-tag-name" data-tags="detection"><span class="iconfont-archer">&#xe606;</span>detection</span>
     
         <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
     
         <span class="sidebar-tag-name" data-tags="Perl"><span class="iconfont-archer">&#xe606;</span>Perl</span>
+    
+        <span class="sidebar-tag-name" data-tags="pam"><span class="iconfont-archer">&#xe606;</span>pam</span>
+    
+        <span class="sidebar-tag-name" data-tags="book"><span class="iconfont-archer">&#xe606;</span>book</span>
+    
+        <span class="sidebar-tag-name" data-tags="audit"><span class="iconfont-archer">&#xe606;</span>audit</span>
+    
+        <span class="sidebar-tag-name" data-tags="golang"><span class="iconfont-archer">&#xe606;</span>golang</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
@@ -788,6 +902,8 @@ jsonContent:
 </div>
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="Linux"><span class="iconfont-archer">&#xe60a;</span>Linux</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>

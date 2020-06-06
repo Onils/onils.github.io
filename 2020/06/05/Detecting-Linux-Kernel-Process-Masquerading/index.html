@@ -20,22 +20,22 @@
     <meta name="keywords" content="LOnils,security,rootkit">
     
     <meta name="description" content="">
-    <meta name="description" content="0x01 Introduction basic Tools.objdump对二进制文件进行反编译，由于依赖ELF头，适合分析简单及未被篡改的文件。objdump -d `which id`  assembler contents of executable sectionsobjcopyobjcopy --only-section=.data `which id` /tmp/id-output">
-<meta name="keywords" content="Linux,Binary,ELF,Reversing">
+    <meta name="description" content="还没写，有空补上">
+<meta name="keywords" content="Linux,rootkit,backdoor">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux Binary Security">
-<meta property="og:url" content="http://onils.github.io/2019/01/02/Linux-Security/index.html">
+<meta property="og:title" content="Detecting Linux Kernel Process Masquerading">
+<meta property="og:url" content="http://onils.github.io/2020/06/05/Detecting-Linux-Kernel-Process-Masquerading/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="0x01 Introduction basic Tools.objdump对二进制文件进行反编译，由于依赖ELF头，适合分析简单及未被篡改的文件。objdump -d `which id`  assembler contents of executable sectionsobjcopyobjcopy --only-section=.data `which id` /tmp/id-output">
+<meta property="og:description" content="还没写，有空补上">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-05-03T18:41:29.701Z">
+<meta property="og:updated_time" content="2020-06-06T14:27:26.225Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux Binary Security">
-<meta name="twitter:description" content="0x01 Introduction basic Tools.objdump对二进制文件进行反编译，由于依赖ELF头，适合分析简单及未被篡改的文件。objdump -d `which id`  assembler contents of executable sectionsobjcopyobjcopy --only-section=.data `which id` /tmp/id-output">
+<meta name="twitter:title" content="Detecting Linux Kernel Process Masquerading">
+<meta name="twitter:description" content="还没写，有空补上">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     
-    <title>Linux Binary Security · LOnils&#39;s Blog</title>
+    <title>Detecting Linux Kernel Process Masquerading · LOnils&#39;s Blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -230,7 +230,7 @@
                 <a href="/">LOnils&#39;s Blog</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">Linux Binary Security</a>
+                <a href="#" class="post-name">Detecting Linux Kernel Process Masquerading</a>
             </div>
     </div>
     
@@ -260,7 +260,7 @@ height:40vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            Linux Binary Security
+            Detecting Linux Kernel Process Masquerading
             <!-- 404 -->
             
         </h1>
@@ -281,22 +281,20 @@ height:40vh;
     
         <a class="post-tag" href="javascript:void(0);" data-tags="Linux">Linux</a>
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="Binary">Binary</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="rootkit">rootkit</a>
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="ELF">ELF</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Reversing">Reversing</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="backdoor">backdoor</a>
     
 </div>
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">403</span>Reading time: <span class="post-count reading-time">2 min</span></span>
+                        <span>Word count: <span class="post-count word-count">15</span>Reading time: <span class="post-count reading-time">1 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2019/01/02</span>
+                    <span class="post-intro-time">2020/06/05</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -423,24 +421,24 @@ height:40vh;
         <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 <div id="hbe-security">
   <div class="hbe-input-container">
-  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read.">
-    <label for="pass">Welcome to my blog, enter password to read.</label>
+  <input type="password" class="hbe-form-control" id="pass" placeholder="Please enter the password to read the blog.">
+    <label for="pass">Please enter the password to read the blog.</label>
     <div class="bottom-line"></div>
   </div>
 </div>
 <div id="decryptionError" style="display: none;">Incorrect Password!</div>
 <div id="noContentError" style="display: none;">No content to display!</div>
 <div id="encrypt-blog" style="display:none">
-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
+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
 </div>
 <script src="/lib/crypto-js.js"></script><script src="/lib/blog-encrypt.js"></script><link href="/css/blog-encrypt.css" rel="stylesheet" type="text/css">
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
-            <p>原文链接：<a href="http://onils.github.io/2019/01/02/Linux-Security/">http://onils.github.io/2019/01/02/Linux-Security/</a>
-            </p><p>发表日期：<a href="http://onils.github.io/2019/01/02/Linux-Security/">January 2nd 2019, 4:28:55 pm</a>
-            </p><p>更新日期：<a href="http://onils.github.io/2019/01/02/Linux-Security/">May 4th 2020, 2:41:29 am</a>
+            <p>原文链接：<a href="http://onils.github.io/2020/06/05/Detecting-Linux-Kernel-Process-Masquerading/">http://onils.github.io/2020/06/05/Detecting-Linux-Kernel-Process-Masquerading/</a>
+            </p><p>发表日期：<a href="http://onils.github.io/2020/06/05/Detecting-Linux-Kernel-Process-Masquerading/">June 5th 2020, 12:00:00 am</a>
+            </p><p>更新日期：<a href="http://onils.github.io/2020/06/05/Detecting-Linux-Kernel-Process-Masquerading/">June 6th 2020, 10:27:26 pm</a>
             </p><p>版权声明：<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)</a></p>
         </div>
     
@@ -448,17 +446,12 @@ U2FsdGVkX1+n69Mhyu+mM+q4GjOyWGrANyTICeo2ByjOKkqNbhhgG6UxK8uxto0b7QRfz0nSwisvC5pO
     <ul class="post-paginator">
         <li class="next">
             
-                <div class="nextSlogan">Next Post</div>
-                <a href="/2020/05/04/Book-Club/" title="Book Club">
-                    <div class="nextTitle">Book Club</div>
-                </a>
-            
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href="/2018/08/13/Learning-Spark-Python/" title="Learning Spark Python Note">
-                    <div class="prevTitle">Learning Spark Python Note</div>
+                <a href="/2020/06/05/Linux-Compromise-Detection-Command-Cheatsheet/" title="Linux Compromise Detection Command Cheatsheet">
+                    <div class="prevTitle">Linux Compromise Detection Command Cheatsheet</div>
                 </a>
             
         </li>
@@ -478,7 +471,7 @@ U2FsdGVkX1+n69Mhyu+mM+q4GjOyWGrANyTICeo2ByjOKkqNbhhgG6UxK8uxto0b7QRfz0nSwisvC5pO
         var gitalk = new Gitalk({
             clientID: '1de907d9fba71de3eedd',
             clientSecret: '5ffbb8f84abb979ecf436da8ecfa046e33b56943',
-            id: 'Linux Binary Security',
+            id: 'Detecting Linux Kernel Process Masquerading',
             repo: 'onils.github.io',
             owner: 'Onils',
             admin: ['Onils'],
@@ -668,9 +661,27 @@ top:40vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 8
+        Total : 10
         </div>
         <!-- search  -->
         
@@ -683,6 +694,16 @@ top:40vh;
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/05</span><a class="archive-post-title" href="/2020/06/05/Linux-Compromise-Detection-Command-Cheatsheet/">Linux Compromise Detection Command Cheatsheet</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/05</span><a class="archive-post-title" href="/2020/06/05/Detecting-Linux-Kernel-Process-Masquerading/">Detecting Linux Kernel Process Masquerading</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -705,7 +726,7 @@ top:40vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/02</span><a class="archive-post-title" href="/2019/01/02/Linux-Security/">Linux Binary Security</a>
+            <span class="archive-post-date">01/02</span><a class="archive-post-title" href="/2019/01/02/Linux-Binary-Security/">Linux Binary Security</a>
         </li>
     
     
@@ -756,17 +777,11 @@ top:40vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="book"><span class="iconfont-archer">&#xe606;</span>book</span>
-    
         <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
     
         <span class="sidebar-tag-name" data-tags="LD_PRELOAD"><span class="iconfont-archer">&#xe606;</span>LD_PRELOAD</span>
     
-        <span class="sidebar-tag-name" data-tags="Binary"><span class="iconfont-archer">&#xe606;</span>Binary</span>
-    
-        <span class="sidebar-tag-name" data-tags="ELF"><span class="iconfont-archer">&#xe606;</span>ELF</span>
-    
-        <span class="sidebar-tag-name" data-tags="Reversing"><span class="iconfont-archer">&#xe606;</span>Reversing</span>
+        <span class="sidebar-tag-name" data-tags="rootkit"><span class="iconfont-archer">&#xe606;</span>rootkit</span>
     
         <span class="sidebar-tag-name" data-tags="ML"><span class="iconfont-archer">&#xe606;</span>ML</span>
     
@@ -776,17 +791,27 @@ top:40vh;
     
         <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
     
+        <span class="sidebar-tag-name" data-tags="Binary"><span class="iconfont-archer">&#xe606;</span>Binary</span>
+    
+        <span class="sidebar-tag-name" data-tags="ELF"><span class="iconfont-archer">&#xe606;</span>ELF</span>
+    
+        <span class="sidebar-tag-name" data-tags="Reversing"><span class="iconfont-archer">&#xe606;</span>Reversing</span>
+    
         <span class="sidebar-tag-name" data-tags="backdoor"><span class="iconfont-archer">&#xe606;</span>backdoor</span>
     
-        <span class="sidebar-tag-name" data-tags="pam"><span class="iconfont-archer">&#xe606;</span>pam</span>
-    
-        <span class="sidebar-tag-name" data-tags="audit"><span class="iconfont-archer">&#xe606;</span>audit</span>
-    
-        <span class="sidebar-tag-name" data-tags="golang"><span class="iconfont-archer">&#xe606;</span>golang</span>
+        <span class="sidebar-tag-name" data-tags="detection"><span class="iconfont-archer">&#xe606;</span>detection</span>
     
         <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
     
         <span class="sidebar-tag-name" data-tags="Perl"><span class="iconfont-archer">&#xe606;</span>Perl</span>
+    
+        <span class="sidebar-tag-name" data-tags="pam"><span class="iconfont-archer">&#xe606;</span>pam</span>
+    
+        <span class="sidebar-tag-name" data-tags="book"><span class="iconfont-archer">&#xe606;</span>book</span>
+    
+        <span class="sidebar-tag-name" data-tags="audit"><span class="iconfont-archer">&#xe606;</span>audit</span>
+    
+        <span class="sidebar-tag-name" data-tags="golang"><span class="iconfont-archer">&#xe606;</span>golang</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
@@ -820,6 +845,8 @@ jsonContent:
 </div>
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="Linux"><span class="iconfont-archer">&#xe60a;</span>Linux</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>

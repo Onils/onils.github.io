@@ -22,7 +22,7 @@
     <meta name="description" content="">
     <meta property="og:type" content="website">
 <meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://onils.github.io/tags/Perl/index.html">
+<meta property="og:url" content="http://onils.github.io/tags/rootkit/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:locale" content="en">
 <meta name="twitter:card" content="summary">
@@ -354,29 +354,60 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2017/12/17/Pwnhub-returns-and-SqlSRF-WP/">
+        <a class="abstract-title" href="/2020/06/05/Detecting-Linux-Kernel-Process-Masquerading/">
             
-                <span>Pwnhub returns and SqlSRF WP</span>
+                <span>Detecting Linux Kernel Process Masquerading</span>
         </a>
         <div class="abstract-content">
-            最近pwnhub出了个perl的Web题，查看源码title的时候顺便发现了SECCON2017的SqlSRF，也顺便也研究了下perl语言的一些特性。
-0x01 Pwbhub归来题目地址：http://54.222.248.100/
-怕题目下线了把源码先cp下来。
-1my $sth = $dbh-&gt;prepare("SELECT password FROM users WHERE username='".$q-&gt;param('user')."';");
-user处很明显的sqli,撸个测试脚本注入下（最早之前是用延时注入脚本跑的，和0x2 SqlSRF里的脚本差不多）123...
+            还没写，有空补上
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2017/12/17</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/06/05</span>
             </div>
             <!-- tags  -->
             
             <div class="abstract-tags">
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="CTF">CTF</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="Linux">Linux</a>
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="Perl">Perl</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="rootkit">rootkit</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="backdoor">backdoor</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2020/06/02/LD_NOT_PRELOAD_FOR_REAL-CN/">
+            
+                <span>LD NOT PRELOAD For Real</span>
+        </a>
+        <div class="abstract-content">
+            The article has been encrypted, please enter your password to view.<br>
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/06/02</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="Linux">Linux</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="LD_PRELOAD">LD_PRELOAD</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="rootkit">rootkit</a>
     
 </div>
             
